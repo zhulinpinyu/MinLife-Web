@@ -1,0 +1,16 @@
+
+.normal {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.content {
+  display: flex;
+  flex: 1;
+}
+
+.main {
+  padding: 0 0px;
+  flex: 1 0 auto;
+}
