@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'dva';
 import styles from './IndexPage.css';
-
-import Layout from '../components/Layout'
+import Layout from '../components/Layout/Layout'
 
 class IndexPage extends Component {
   render() {

@@ -8,11 +8,14 @@ class Header extends Component {
     return (
       <Menu
         selectedKeys={[location.pathname]}
-        theme="light"
+        theme="dark"
         mode="horizontal"
       >
         <Menu.Item key="/">
           <Link to="/"><Icon type="appstore" />Home</Link>
+        </Menu.Item>
+        <Menu.Item key="/categories">
+          <Link to="/categories"><Icon type="hourglass" />Category</Link>
         </Menu.Item>
         <Menu.Item key="/antd">
           <a href="https://github.com/dvajs/dva" target="_blank">
