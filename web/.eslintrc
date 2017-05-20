@@ -22,7 +22,12 @@
     "no-bitwise": [0],
     "no-cond-assign": [0],
     "import/no-unresolved": [0],
-    "require-yield": [1]
+    "require-yield": [1],
+    "semi": [0],
+    "comma-dangle": [0],
+    "no-console": [0],
+    "class-methods-use-this": [0],
+    "react/jsx-no-target-blank": [0]
   },
   "parserOptions": {
     "ecmaFeatures": {
