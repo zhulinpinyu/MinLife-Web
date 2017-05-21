@@ -10,7 +10,7 @@ class Categories extends Component {
     const { location, categories, dispatch } = this.props
     if (location.pathname === '/categories/new') {
       return (
-        <CategoryNewComponent dispatch={dispatch} />
+        <CategoryNewComponent dispatch={dispatch} record={{}} categories={categories} />
       )
     }
     return (
