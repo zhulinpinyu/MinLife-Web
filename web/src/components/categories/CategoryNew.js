@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { Form, Input, Button, Cascader } from 'antd'
+import { Form, Input, Button, Select } from 'antd'
 import styles from './Categories.css';
 
 class CategoryNew extends Component {
   render() {
     const formItemLayout = {
       labelCol: { span: 6 },
-      wrapperCol: { span: 14 }
+      wrapperCol: { span: 12 }
     }
     const tailFormItemLayout = {
       wrapperCol: { span: 14, offset: 6 }
@@ -17,14 +17,6 @@ class CategoryNew extends Component {
       form: { getFieldDecorator },
       record: { title, parent_id }
     } = this.props
-
-    const options = categories.map((category) => {
-      return {
-        value: category.id,
-        label: category.title,
-        children: category.subCategories.map(subCat => ({ value: subCat.id, label: subCat.title }))
-      }
-    })
 
     return (
       <div className={styles.normal}>
@@ -46,14 +38,29 @@ class CategoryNew extends Component {
             {
               getFieldDecorator('parent_id', {
                 initialValue: parent_id
-              })(<Cascader options={options} />)
+              })(
+                <Select allowClear placeholder="选择父类别，留空则表示当前添加类别为父类别">
+                  {
+                    categories.map((category) => {
+                      return (
+                        <Select.Option key={category.id} value={`${category.id}`}>
+                          {category.title}
+                        </Select.Option>
+                      )
+                    })
+                  }
+                </Select>
+              )
             }
           </Form.Item>
           <Form.Item
             {...tailFormItemLayout}
           >
             <Button type="primary" htmlType="submit">
-              Save
+              保存
+            </Button>
+            <Button style={{ marginLeft: 8 }} type="dashed">
+              取消
             </Button>
           </Form.Item>
         </Form>
