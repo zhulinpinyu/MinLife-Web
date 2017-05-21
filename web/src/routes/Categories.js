@@ -2,22 +2,25 @@ import React, { Component } from 'react';
 import { connect } from 'dva';
 import styles from './Categories.css';
 import Layout from '../components/Layout/Layout'
+import CategoriesComponent from '../components/categories/Categories'
 
 class Categories extends Component {
   render() {
-    const { location } = this.props
+    const { location, categories } = this.props
     return (
       <Layout location={location}>
         <div className={styles.normal}>
-          Route Component: Categories
+          <CategoriesComponent categories={categories} />
         </div>
       </Layout>
     )
   }
 }
 
-function mapStateToProps() {
-  return {};
+function mapStateToProps(state) {
+  return {
+    categories: state.categories.list
+  }
 }
 
 export default connect(mapStateToProps)(Categories);
