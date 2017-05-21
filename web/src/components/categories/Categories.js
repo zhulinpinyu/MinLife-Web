@@ -1,8 +1,25 @@
 import React, { Component } from 'react';
-import { Table, Collapse } from 'antd'
+import { Table, Collapse, Popconfirm, message } from 'antd'
 import styles from './Categories.css';
 
 class Categories extends Component {
+  deleteHandler(id) {
+    this.props.dispatch({
+      type: 'categories/remove',
+      payload: id
+    })
+    message.success('删除成功。')
+  }
+
+  renderActions(text, { id }) {
+    return (
+      <span className={styles.action}>
+        <Popconfirm title="要删除吗，这个类别可能已经在使用了？" onConfirm={this.deleteHandler.bind(this, id)} okText="删除" cancelText="算了">
+          <a href="">删除</a>
+        </Popconfirm>
+      </span>
+    )
+  }
 
   renderSubCategories(category) {
     const dataSource = category.subCategories.map((cat, index) => ({ ...cat, sequence: index + 1 }))
@@ -27,6 +44,7 @@ class Categories extends Component {
         <Table.Column
           title="操作"
           key="action"
+          render={this.renderActions.bind(this)}
         />
       </Table>
     )

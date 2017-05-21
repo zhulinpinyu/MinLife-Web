@@ -20,6 +20,12 @@ export default {
           data
         }
       })
+    },
+    *remove({ payload: id }, { call, put }) {
+      yield call(categoryService.remove, id)
+      yield put({
+        type: 'fetch'
+      })
     }
   },
   subscriptions: {

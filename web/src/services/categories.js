@@ -13,3 +13,9 @@ export const fetch = async () => {
     })
   return { data }
 }
+
+export const remove = async (id) => {
+  await request(`/api/categories/${id}`, {
+    method: 'DELETE'
+  })
+}

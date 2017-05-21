@@ -6,11 +6,11 @@ import CategoriesComponent from '../components/categories/Categories'
 
 class Categories extends Component {
   render() {
-    const { location, categories } = this.props
+    const { location, categories, dispatch } = this.props
     return (
       <Layout location={location}>
         <div className={styles.normal}>
-          <CategoriesComponent categories={categories} />
+          <CategoriesComponent dispatch={dispatch} categories={categories} />
         </div>
       </Layout>
     )
