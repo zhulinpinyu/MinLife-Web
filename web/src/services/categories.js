@@ -1,5 +1,15 @@
 import request from '../utils/request';
 
 export const fetch = async () => {
-  return request('/api/categories')
+  const { data: categories } = await request('/api/categories')
+  const data = categories
+    .filter(category => !category.parent_id)
+    .map((cat) => {
+      const subCategories = categories.filter(c => cat.id === c.parent_id)
+      return {
+        ...cat,
+        subCategories
+      }
+    })
+  return { data }
 }
