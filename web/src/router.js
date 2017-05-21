@@ -8,6 +8,7 @@ function RouterConfig({ history }) {
     <Router history={history}>
       <Route path="/" component={IndexPage} />
       <Route path="/categories" component={Categories} />
+      <Route path="/categories/new" component={Categories} />
     </Router>
   );
 }

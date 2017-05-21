@@ -5,9 +5,10 @@ import { Link } from 'dva/router'
 class Header extends Component {
   render() {
     const { location } = this.props
+    const selectedKey = location.pathname === '/categories/new' ? '/categories' : location.pathname
     return (
       <Menu
-        selectedKeys={[location.pathname]}
+        selectedKeys={[selectedKey]}
         theme="dark"
         mode="horizontal"
       >

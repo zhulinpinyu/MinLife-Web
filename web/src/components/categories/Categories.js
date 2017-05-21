@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Table, Collapse, Popconfirm, message } from 'antd'
+import { Table, Collapse, Popconfirm, message, Button } from 'antd'
+import { routerRedux } from 'dva/router'
 import styles from './Categories.css';
 
 class Categories extends Component {
@@ -9,6 +10,12 @@ class Categories extends Component {
       payload: id
     })
     message.success('删除成功。')
+  }
+
+  newCategoryHandler() {
+    this.props.dispatch(routerRedux.push({
+      pathname: '/categories/new'
+    }))
   }
 
   renderActions(text, { id }) {
@@ -55,6 +62,9 @@ class Categories extends Component {
 
     return (
       <div className={styles.normal}>
+        <div className={styles.create}>
+          <Button type="primary" icon="plus" onClick={this.newCategoryHandler.bind(this)}>添加类别</Button>
+        </div>
         <Collapse>
           {
             categories.map((category) => {
