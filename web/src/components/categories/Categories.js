@@ -1,20 +1,23 @@
 import React, { Component } from 'react';
-import { Table } from 'antd'
+import { Table, Collapse } from 'antd'
 import styles from './Categories.css';
 
 class Categories extends Component {
 
-  expandedRowRender(category) {
+  renderSubCategories(category) {
+    const dataSource = category.subCategories.map((cat, index) => ({ ...cat, sequence: index + 1 }))
     return (
       <Table
-        dataSource={category.subCategories}
+        dataSource={dataSource}
         rowKey={cat => cat.id}
         pagination={false}
+        size="small"
+        bordered
       >
         <Table.Column
-          title="ID"
-          dataIndex="id"
-          key="id"
+          title="序号"
+          dataIndex="sequence"
+          key="sequence"
         />
         <Table.Column
           title="类别名称"
@@ -34,27 +37,17 @@ class Categories extends Component {
 
     return (
       <div className={styles.normal}>
-        <Table
-          dataSource={categories}
-          rowKey={category => category.id}
-          pagination={false}
-          expandedRowRender={this.expandedRowRender.bind(this)}
-        >
-          <Table.Column
-            title="ID"
-            dataIndex="id"
-            key="id"
-          />
-          <Table.Column
-            title="类别名称"
-            dataIndex="title"
-            key="title"
-          />
-          <Table.Column
-            title="操作"
-            key="action"
-          />
-        </Table>
+        <Collapse>
+          {
+            categories.map((category) => {
+              return (
+                <Collapse.Panel key={category.id} header={category.title}>
+                  {this.renderSubCategories(category)}
+                </Collapse.Panel>
+              )
+            })
+          }
+        </Collapse>
       </div>
     )
   }
