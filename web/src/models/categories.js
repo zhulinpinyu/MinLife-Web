@@ -37,7 +37,7 @@ export default {
   subscriptions: {
     setup({ dispatch, history }) {
       return history.listen(({ pathname, query }) => {
-        if (pathname === '/categories') {
+        if (pathname === '/user') {
           dispatch({
             type: 'fetch',
             payload: query

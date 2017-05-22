@@ -21,9 +21,6 @@ class Header extends Component {
         <Menu.Item key="/statis">
           <Link to="/"><Icon type="area-chart" />统计分析</Link>
         </Menu.Item>
-        <Menu.Item key="/categories">
-          <Link to="/categories"><Icon type="hourglass" />Category</Link>
-        </Menu.Item>
         <Menu.Item key="/user">
           <Link to="/user"><Icon type="user" />竹林品雨</Link>
         </Menu.Item>
