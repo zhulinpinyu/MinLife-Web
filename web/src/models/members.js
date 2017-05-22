@@ -1,7 +1,7 @@
-import * as categoryService from '../services/categories'
+import * as membersService from '../services/members'
 
 export default {
-  namespace: 'categories',
+  namespace: 'members',
   state: {
     list: []
   },
@@ -12,24 +12,12 @@ export default {
   },
   effects: {
     *fetch({ payload }, { call, put }) {
-      const { data } = yield call(categoryService.fetch)
+      const { data } = yield call(membersService.fetch)
       yield put({
         type: 'save',
         payload: {
           data
         }
-      })
-    },
-    *remove({ payload: id }, { call, put }) {
-      yield call(categoryService.remove, id)
-      yield put({
-        type: 'fetch'
-      })
-    },
-    *create({ payload: values }, { call, put }) {
-      yield call(categoryService.create, values)
-      yield put({
-        type: 'fetch'
       })
     }
   },
