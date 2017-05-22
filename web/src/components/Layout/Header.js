@@ -13,15 +13,19 @@ class Header extends Component {
         mode="horizontal"
       >
         <Menu.Item key="/">
-          <Link to="/"><Icon type="appstore" />Home</Link>
+          <Link to="/"><Icon type="appstore" />主页</Link>
+        </Menu.Item>
+        <Menu.Item key="/accounts">
+          <Link to="/"><Icon type="credit-card" />账户</Link>
+        </Menu.Item>
+        <Menu.Item key="/statis">
+          <Link to="/"><Icon type="area-chart" />统计分析</Link>
         </Menu.Item>
         <Menu.Item key="/categories">
           <Link to="/categories"><Icon type="hourglass" />Category</Link>
         </Menu.Item>
-        <Menu.Item key="/antd">
-          <a href="https://github.com/dvajs/dva" target="_blank">
-            <Icon type="star" />dva
-          </a>
+        <Menu.Item key="/user">
+          <Link to="/"><Icon type="user" />竹林品雨</Link>
         </Menu.Item>
       </Menu>
     )
