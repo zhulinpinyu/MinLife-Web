@@ -1,8 +1,31 @@
 import React, { Component } from 'react';
 import { Form, Input, Button, Select } from 'antd'
+import { routerRedux } from 'dva/router'
 import styles from './Categories.css';
 
 class CategoryNew extends Component {
+  handleSubmit(e) {
+    e.preventDefault()
+    this.props.form.validateFields((err, values) => {
+      if (!err) {
+        this.props.dispatch({
+          type: 'categories/create',
+          payload: {
+            ...values,
+            parent_id: parseInt(values.parent_id, 10)
+          }
+        })
+        this.handleCancel()
+      }
+    })
+  }
+
+  handleCancel() {
+    this.props.dispatch(routerRedux.push({
+      pathname: '/categories'
+    }))
+  }
+
   render() {
     const formItemLayout = {
       labelCol: { span: 6 },
@@ -20,7 +43,7 @@ class CategoryNew extends Component {
 
     return (
       <div className={styles.normal}>
-        <Form layout="horizontal" onSubmit={() => console.log('submit')}>
+        <Form layout="horizontal" onSubmit={this.handleSubmit.bind(this)}>
           <Form.Item
             {...formItemLayout}
             label="类别名称"
@@ -59,7 +82,11 @@ class CategoryNew extends Component {
             <Button type="primary" htmlType="submit">
               保存
             </Button>
-            <Button style={{ marginLeft: 8 }} type="dashed">
+            <Button
+              style={{ marginLeft: 8 }}
+              type="dashed"
+              onClick={this.handleCancel.bind(this)}
+            >
               取消
             </Button>
           </Form.Item>

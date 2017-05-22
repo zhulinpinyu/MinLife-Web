@@ -14,8 +14,18 @@ export const fetch = async () => {
   return { data }
 }
 
-export const remove = async (id) => {
-  await request(`/api/categories/${id}`, {
+export const remove = (id) => {
+  return request(`/api/categories/${id}`, {
     method: 'DELETE'
+  })
+}
+
+export const create = (values) => {
+  return request('/api/categories', {
+    method: 'POST',
+    body: JSON.stringify(values),
+    headers: {
+      'Content-Type': 'application/json'
+    }
   })
 }

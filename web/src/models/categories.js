@@ -26,6 +26,12 @@ export default {
       yield put({
         type: 'fetch'
       })
+    },
+    *create({ payload: values }, { call, put }) {
+      yield call(categoryService.create, values)
+      yield put({
+        type: 'fetch'
+      })
     }
   },
   subscriptions: {
