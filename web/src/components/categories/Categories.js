@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Table, Collapse, Popconfirm, message, Button } from 'antd'
 import { routerRedux } from 'dva/router'
+import _ from 'lodash'
 import styles from './Categories.css';
 
 class Categories extends Component {
@@ -30,6 +31,15 @@ class Categories extends Component {
 
   renderSubCategories(category) {
     const dataSource = category.subCategories.map((cat, index) => ({ ...cat, sequence: index + 1 }))
+    if (_.isEmpty(dataSource)) {
+      return (
+        <Popconfirm title="那就删了？" onConfirm={this.deleteHandler.bind(this, category.id)} okText="删除" cancelText="算了">
+          <Button icon="close-circle" type="danger">
+            删了我吧
+          </Button>
+        </Popconfirm>
+      )
+    }
     return (
       <Table
         dataSource={dataSource}
