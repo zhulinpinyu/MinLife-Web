@@ -3,16 +3,11 @@ import { connect } from 'dva';
 import styles from './Categories.css';
 import Layout from '../components/Layout/Layout'
 import CategoriesComponent from '../components/categories/Categories'
-import CategoryNewComponent from '../components/categories/CategoryNew'
+
 
 class Categories extends Component {
   renderComponent() {
-    const { location, categories, dispatch } = this.props
-    if (location.pathname === '/categories/new') {
-      return (
-        <CategoryNewComponent dispatch={dispatch} record={{}} categories={categories} />
-      )
-    }
+    const { categories, dispatch } = this.props
     return (
       <CategoriesComponent dispatch={dispatch} categories={categories} />
     )

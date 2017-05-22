@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Table, Collapse, Popconfirm, message, Button } from 'antd'
-import { routerRedux } from 'dva/router'
 import _ from 'lodash'
 import styles from './Categories.css';
+
+import CategoryModal from './CategoryModal'
 
 class Categories extends Component {
   deleteHandler(id) {
@@ -11,12 +12,6 @@ class Categories extends Component {
       payload: id
     })
     message.success('删除成功。')
-  }
-
-  newCategoryHandler() {
-    this.props.dispatch(routerRedux.push({
-      pathname: '/categories/new'
-    }))
   }
 
   renderActions(text, { id }) {
@@ -68,12 +63,19 @@ class Categories extends Component {
   }
 
   render() {
-    const { categories } = this.props
+    const { categories, dispatch } = this.props
 
     return (
       <div className={styles.normal}>
         <div className={styles.create}>
-          <Button type="primary" icon="plus" onClick={this.newCategoryHandler.bind(this)}>添加类别</Button>
+          <CategoryModal dispatch={dispatch} record={{}} categories={categories}>
+            <Button
+              type="primary"
+              icon="plus"
+            >
+              添加类别
+            </Button>
+          </CategoryModal>
         </div>
         <Collapse>
           {
