@@ -68,7 +68,12 @@ class Categories extends Component {
     return (
       <div className={styles.normal}>
         <div className={styles.create}>
-          <CategoryModal dispatch={dispatch} record={{}} categories={categories}>
+          <CategoryModal
+            modalKey={Math.random()}
+            dispatch={dispatch}
+            record={{}}
+            categories={categories}
+          >
             <Button
               type="primary"
               icon="plus"

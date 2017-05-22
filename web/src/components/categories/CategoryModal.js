@@ -39,19 +39,20 @@ class CategoryModal extends Component {
     }
 
     const {
+      modalKey,
       children,
       categories,
       form: { getFieldDecorator },
       record: { title, parent_id }
     } = this.props
 
-    console.log(this.props.record);
     return (
       <span>
         <span onClick={this.showModalHandler.bind(this)}>
           { children }
         </span>
         <Modal
+          key={modalKey}
           title="添加新类别"
           visible={this.state.visible}
           onOk={this.handleSubmit.bind(this)}
