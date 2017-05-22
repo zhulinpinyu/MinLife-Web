@@ -23,9 +23,6 @@ export const remove = (id) => {
 export const create = (values) => {
   return request('/api/categories', {
     method: 'POST',
-    body: JSON.stringify(values),
-    headers: {
-      'Content-Type': 'application/json'
-    }
+    body: JSON.stringify(values)
   })
 }
