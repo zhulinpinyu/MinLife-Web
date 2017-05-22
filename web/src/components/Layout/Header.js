@@ -25,7 +25,7 @@ class Header extends Component {
           <Link to="/categories"><Icon type="hourglass" />Category</Link>
         </Menu.Item>
         <Menu.Item key="/user">
-          <Link to="/"><Icon type="user" />竹林品雨</Link>
+          <Link to="/user"><Icon type="user" />竹林品雨</Link>
         </Menu.Item>
       </Menu>
     )
