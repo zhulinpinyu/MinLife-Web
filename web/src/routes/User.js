@@ -3,8 +3,9 @@ import { connect } from 'dva'
 import { Layout, Menu, Icon } from 'antd'
 
 import styles from './User.css'
-import MainLayout from '../components/Layout/Layout'
+import MainLayout from '../components/layout/Layout'
 import Categories from '../components/categories/Categories'
+import Members from '../components/members/Members'
 
 class User extends Component {
   state = {
@@ -19,14 +20,14 @@ class User extends Component {
 
   renderContent() {
     const { selectedKey } = this.state
-    const { dispatch, categories } = this.props
+    const { dispatch, categories, members } = this.props
     switch (selectedKey) {
       case 'usergroup':
-        return <span>家庭成员管理</span>
+        return (<Members data={members} />)
       case 'categories':
         return (<Categories dispatch={dispatch} categories={categories} />)
       default:
-        return <span>家庭成员管理</span>
+        return (<Members data={members} />)
     }
   }
 
@@ -63,7 +64,8 @@ class User extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    categories: state.categories.list
+    categories: state.categories.list,
+    members: state.members.list
   }
 }
 
