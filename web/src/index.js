@@ -9,6 +9,7 @@ const app = dva();
 
 // 3. Model
 app.model(require('./models/categories'))
+app.model(require('./models/accounts'))
 app.model(require('./models/members'))
 
 // 4. Router
