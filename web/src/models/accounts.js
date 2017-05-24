@@ -19,6 +19,18 @@ export default {
           data
         }
       })
+    },
+    *remove({ payload: id }, { call, put }) {
+      yield call(accountsService.remove, id)
+      yield put({ type: 'fetch' })
+    },
+    *create({ payload: values }, { call, put }) {
+      yield call(accountsService.create, values)
+      yield put({ type: 'fetch' })
+    },
+    *patch({ payload: { id, values } }, { call, put }) {
+      yield call(accountsService.create, { id, values })
+      yield put({ type: 'fetch' })
     }
   },
   subscriptions: {

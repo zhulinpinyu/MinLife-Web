@@ -12,7 +12,7 @@ export const create = (values) => {
   return Common.create(ACCOUNT_URL, values)
 }
 
-export const patch = (id, values) => {
+export const patch = ({ id, values }) => {
   return Common.patch(`${ACCOUNT_URL}/${id}`, values)
 }
 
