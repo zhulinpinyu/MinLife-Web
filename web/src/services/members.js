@@ -1,5 +1,7 @@
 import request from '../utils/request'
 
+const MEMBER_URL = '/api/members'
+
 export const fetch = () => {
-  return request('/api/members')
+  return request(MEMBER_URL)
 }

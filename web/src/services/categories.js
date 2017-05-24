@@ -1,7 +1,10 @@
 import request from '../utils/request';
+import * as Common from './common'
+
+const CATEGORY_URL = '/api/categories'
 
 export const fetch = async () => {
-  const { data: categories } = await request('/api/categories')
+  const { data: categories } = await request(CATEGORY_URL)
   const data = categories
     .filter(category => !category.parent_id)
     .map((cat) => {
@@ -15,14 +18,9 @@ export const fetch = async () => {
 }
 
 export const remove = (id) => {
-  return request(`/api/categories/${id}`, {
-    method: 'DELETE'
-  })
+  return Common.remove(`${CATEGORY_URL}/${id}`)
 }
 
 export const create = (values) => {
-  return request('/api/categories', {
-    method: 'POST',
-    body: JSON.stringify(values)
-  })
+  return Common.create(CATEGORY_URL, values)
 }
