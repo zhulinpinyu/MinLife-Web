@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Modal, Form, Input, Switch } from 'antd'
+import { Modal, Form, Input, Switch, Radio } from 'antd'
 
 class AccountModal extends Component {
   state = {
@@ -36,7 +36,7 @@ class AccountModal extends Component {
       modalKey,
       title: modalTitle,
       form: { getFieldDecorator },
-      record: { title, balance, debt }
+      record: { title, balance, debt, currency }
     } = this.props
     return (
       <span>
@@ -63,7 +63,7 @@ class AccountModal extends Component {
             </Form.Item>
             <Form.Item
               {...formItemLayout}
-              label="余额"
+              label="金额"
             >
               {
                 getFieldDecorator('balance', {
@@ -73,7 +73,21 @@ class AccountModal extends Component {
             </Form.Item>
             <Form.Item
               {...formItemLayout}
-              label="债务账户"
+              label="币种"
+            >
+              {getFieldDecorator('currency', {
+                initialValue: currency || '￥'
+              })(
+                <Radio.Group>
+                  <Radio.Button value="￥">RMB(￥)</Radio.Button>
+                  <Radio.Button value="$">USD($)</Radio.Button>
+                  <Radio.Button value="HK$">HKD(HK$)</Radio.Button>
+                </Radio.Group>
+              )}
+            </Form.Item>
+            <Form.Item
+              {...formItemLayout}
+              label="债务账户?"
             >
               {
                 getFieldDecorator('debt', {

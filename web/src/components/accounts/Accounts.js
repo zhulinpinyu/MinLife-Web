@@ -63,7 +63,7 @@ class Accounts extends Component {
             key="title"
           />
           <Table.Column
-            title="余额"
+            title="债务"
             dataIndex="balance"
             key="balance"
           />
@@ -97,7 +97,7 @@ class Accounts extends Component {
             key="title"
           />
           <Table.Column
-            title="债务"
+            title="余额"
             dataIndex="balance"
             key="balance"
           />
