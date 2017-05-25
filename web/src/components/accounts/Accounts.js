@@ -43,23 +43,10 @@ class Accounts extends Component {
     )
   }
 
-  render() {
-    const { accounts } = this.props
-    const dataSource = accounts.map((a, i) => ({ ...a, sequence: i + 1 }))
+  renderDebtAccounts(dataSource) {
     return (
-      <div className={styles.normal}>
-        <div className={styles.create}>
-          <AccountModal
-            modalKey={Math.random()}
-            title="添加新账户"
-            onOk={this.createHandler.bind(this)}
-            record={{}}
-          >
-            <Button type="primary" icon="plus">
-              添加账户
-            </Button>
-          </AccountModal>
-        </div>
+      <div className={styles.accountsBox}>
+        <h2 className={styles.accountLabel}><span>债务账户</span></h2>
         <Table
           dataSource={dataSource}
           rowKey={item => item.id}
@@ -81,11 +68,69 @@ class Accounts extends Component {
             key="balance"
           />
           <Table.Column
-            title="余额"
+            title="操作"
             key="action"
             render={this.renderActions.bind(this)}
           />
         </Table>
+      </div>
+    )
+  }
+
+  renderDebitAccounts(dataSource) {
+    return (
+      <div className={styles.accountsBox}>
+        <h2 className={styles.accountLabel}><span>储蓄账户</span></h2>
+        <Table
+          dataSource={dataSource}
+          rowKey={item => item.id}
+          pagination={false}
+        >
+          <Table.Column
+            title="序号"
+            dataIndex="sequence"
+            key="sequence"
+          />
+          <Table.Column
+            title="账户"
+            dataIndex="title"
+            key="title"
+          />
+          <Table.Column
+            title="债务"
+            dataIndex="balance"
+            key="balance"
+          />
+          <Table.Column
+            title="操作"
+            key="action"
+            render={this.renderActions.bind(this)}
+          />
+        </Table>
+      </div>
+    )
+  }
+
+  render() {
+    const { accounts } = this.props
+    const debtData = accounts.filter(a => a.debt).map((a, i) => ({ ...a, sequence: i + 1 }))
+    const debitData = accounts.filter(a => !a.debt).map((a, i) => ({ ...a, sequence: i + 1 }))
+    return (
+      <div className={styles.normal}>
+        <div className={styles.create}>
+          <AccountModal
+            modalKey={Math.random()}
+            title="添加新账户"
+            onOk={this.createHandler.bind(this)}
+            record={{}}
+          >
+            <Button type="primary" icon="plus">
+              添加账户
+            </Button>
+          </AccountModal>
+        </div>
+        {this.renderDebitAccounts(debitData)}
+        {this.renderDebtAccounts(debtData)}
       </div>
     )
   }

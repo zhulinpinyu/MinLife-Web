@@ -9,3 +9,17 @@
 .action a {
   margin: 0 .5em;
 }
+
+.accountLabel {
+  margin: .5em 0;
+}
+
+.accountsBox{
+  border: 1px solid #e9e9e9;
+  border-radius: 4px;
+  display: inline-block;
+  width: 100%;
+  position: relative;
+  margin: 0 0 16px;
+  padding: 0 10px;
+}
