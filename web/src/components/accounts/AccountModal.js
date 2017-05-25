@@ -77,7 +77,7 @@ class AccountModal extends Component {
             >
               {
                 getFieldDecorator('debt', {
-                  initialValue: debt,
+                  initialValue: debt || false,
                   valuePropName: 'checked'
                 })(<Switch />)
               }
