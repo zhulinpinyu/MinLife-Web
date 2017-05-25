@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Modal, Form, Input } from 'antd'
+import { Modal, Form, Input, Switch } from 'antd'
 
 class AccountModal extends Component {
   state = {
@@ -36,7 +36,7 @@ class AccountModal extends Component {
       modalKey,
       title: modalTitle,
       form: { getFieldDecorator },
-      record: { title, balance }
+      record: { title, balance, debt }
     } = this.props
     return (
       <span>
@@ -69,6 +69,17 @@ class AccountModal extends Component {
                 getFieldDecorator('balance', {
                   initialValue: balance
                 })(<Input type="number" />)
+              }
+            </Form.Item>
+            <Form.Item
+              {...formItemLayout}
+              label="债务账户"
+            >
+              {
+                getFieldDecorator('debt', {
+                  initialValue: debt,
+                  valuePropName: 'checked'
+                })(<Switch />)
               }
             </Form.Item>
           </Form>
