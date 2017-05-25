@@ -66,6 +66,7 @@ class Accounts extends Component {
             title="债务"
             dataIndex="balance"
             key="balance"
+            render={(text, { currency }) => `${text} (${currency})`}
           />
           <Table.Column
             title="操作"
@@ -100,6 +101,7 @@ class Accounts extends Component {
             title="余额"
             dataIndex="balance"
             key="balance"
+            render={(text, { currency }) => `${text} (${currency})`}
           />
           <Table.Column
             title="操作"
