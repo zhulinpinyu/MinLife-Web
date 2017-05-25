@@ -17,12 +17,10 @@ class AccountModal extends Component {
 
   handleSubmit(e) {
     e.preventDefault()
-    this.props.form.vaidateFileds((err, values) => {
+    const { form, onOk } = this.props
+    form.validateFields((err, values) => {
       if (!err) {
-        this.props.dispatch({
-          type: 'accounts/create',
-          payload: values
-        })
+        onOk(values)
       }
       this.hideModalHandler()
     })

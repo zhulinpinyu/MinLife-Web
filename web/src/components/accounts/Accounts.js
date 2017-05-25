@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Table, Popconfirm, Button } from 'antd'
 import styles from './Accounts.css'
+import AccountModal from './AccountModal'
 
 class Accounts extends Component {
   deleteHandler(id) {
@@ -10,13 +11,34 @@ class Accounts extends Component {
     })
   }
 
-  renderActions(text, { id }) {
+  createHandler(values) {
+    this.props.dispatch({
+      type: 'accounts/create',
+      payload: values
+    })
+  }
+
+  editHandler(id, values) {
+    this.props.dispatch({
+      type: 'accounts/patch',
+      payload: { id, values }
+    })
+  }
+
+  renderActions(text, record) {
     return (
       <span className={styles.action}>
-        <Popconfirm title="要删除吗，这个类别可能已经在使用了？" onConfirm={this.deleteHandler.bind(this, id)} okText="删除" cancelText="算了">
+        <Popconfirm title="要删除吗，这个类别可能已经在使用了？" onConfirm={this.deleteHandler.bind(this, record.id)} okText="删除" cancelText="算了">
           <a href="">删除</a>
         </Popconfirm>
-        <a href="">编辑</a>
+        <AccountModal
+          modalKey={Math.random()}
+          title="修改账户信息"
+          record={record}
+          onOk={this.editHandler.bind(this, record.id)}
+        >
+          <a href="">编辑</a>
+        </AccountModal>
       </span>
     )
   }
@@ -27,9 +49,16 @@ class Accounts extends Component {
     return (
       <div className={styles.normal}>
         <div className={styles.create}>
-          <Button type="primary" icon="plus">
-            添加账户
-          </Button>
+          <AccountModal
+            modalKey={Math.random()}
+            title="添加新账户"
+            onOk={this.createHandler.bind(this)}
+            record={{}}
+          >
+            <Button type="primary" icon="plus">
+              添加账户
+            </Button>
+          </AccountModal>
         </div>
         <Table
           dataSource={dataSource}

@@ -6,11 +6,11 @@ import AccountsComponent from '../components/accounts/Accounts'
 
 class Account extends Component {
   render() {
-    const { location, accounts } = this.props
+    const { location, accounts, dispatch } = this.props
     return (
       <MainLayout location={location}>
         <div className={styles.normal}>
-          <AccountsComponent accounts={accounts} />
+          <AccountsComponent dispatch={dispatch} accounts={accounts} />
         </div>
       </MainLayout>
     )

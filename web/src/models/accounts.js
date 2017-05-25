@@ -29,7 +29,7 @@ export default {
       yield put({ type: 'fetch' })
     },
     *patch({ payload: { id, values } }, { call, put }) {
-      yield call(accountsService.create, { id, values })
+      yield call(accountsService.patch, { id, values })
       yield put({ type: 'fetch' })
     }
   },
