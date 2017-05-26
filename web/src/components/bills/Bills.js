@@ -1,12 +1,32 @@
 import React, { Component } from 'react'
-import { Table } from 'antd'
+import { Table, Button } from 'antd'
 import styles from './Bills.css'
+import BillModal from './BillModal'
 
 class Bills extends Component {
+  createHandler(values) {
+    console.log(values)
+  }
+
   render() {
-    const { bills } = this.props
+    const { bills, accounts, categories, members } = this.props
     return (
       <div className={styles.normal}>
+        <div className={styles.create}>
+          <BillModal
+            modalKey={Math.random()}
+            title="记一笔"
+            onOk={this.createHandler.bind(this)}
+            record={{}}
+            accounts={accounts}
+            categories={categories}
+            members={members}
+          >
+            <Button type="primary" icon="plus">
+               记一笔
+            </Button>
+          </BillModal>
+        </div>
         <Table
           dataSource={bills}
           rowKey={item => item.id}

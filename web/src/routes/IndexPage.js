@@ -8,14 +8,28 @@ import Bills from '../components/bills/Bills'
 
 class IndexPage extends Component {
   render() {
-    const { location, dispatch, bills } = this.props
+    const {
+      location,
+      dispatch,
+      bills,
+      accounts,
+      categories,
+      members
+    } = this.props
+
     return (
       <Layout location={location}>
         <div className={styles.normal}>
           <Row>
             <Col span={4} />
             <Col span={16}>
-              <Bills dispatch={dispatch} bills={bills} />
+              <Bills
+                dispatch={dispatch}
+                bills={bills}
+                accounts={accounts}
+                categories={categories}
+                members={members}
+              />
             </Col>
             <Col span={4} />
           </Row>
@@ -34,7 +48,10 @@ const mapStateToProps = ({ bills, categories, accounts, members }) => {
         account: accounts.list.find(acc => acc.id === bill.account_id),
         member: members.list.find(mem => mem.id === bill.member_id)
       }
-    })
+    }),
+    categories: categories.list,
+    accounts: accounts.list,
+    members: members.list
   }
 }
 
