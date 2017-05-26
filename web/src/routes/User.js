@@ -64,7 +64,15 @@ class User extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    categories: state.categories.list,
+    categories: state.categories.list
+      .filter(category => !category.parent_id)
+      .map((cat) => {
+        const subCategories = state.categories.list.filter(c => cat.id === c.parent_id)
+        return {
+          ...cat,
+          subCategories
+        }
+      }),
     members: state.members.list
   }
 }
