@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Modal, Form, Input, Radio, Select, Cascader, DatePicker } from 'antd'
+import moment from 'moment'
 
 class BillModal extends Component {
   state = {
@@ -168,7 +169,7 @@ class BillModal extends Component {
             >
               {
                 getFieldDecorator('bill_date', {
-                  initialValue: bill_date
+                  initialValue: bill_date || moment(Date.now())
                 })(<DatePicker
                   format="YYYY-MM-DD HH:mm:ss"
                   showTime
