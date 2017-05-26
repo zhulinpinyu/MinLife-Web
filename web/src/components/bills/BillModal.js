@@ -117,7 +117,7 @@ class BillModal extends Component {
               {
                 getFieldDecorator('category_id', {
                   initialValue: category_id
-                })(<Cascader options={options} />)
+                })(<Cascader expandTrigger="hover" options={options} />)
               }
             </Form.Item>
             <Form.Item
