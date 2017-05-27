@@ -22,7 +22,7 @@ class BillModal extends Component {
     form.validateFields((err, fieldsValue) => {
       if (err) return
       const values = {
-        ...values,
+        ...fieldsValue,
         bill_date: fieldsValue.bill_date.format('YYYY-MM-DD HH:mm:ss')
       }
       onOk(values)
@@ -195,7 +195,7 @@ class BillModal extends Component {
             >
               {
                 getFieldDecorator('bill_date', {
-                  initialValue: bill_date || moment(Date.now())
+                  initialValue: moment(bill_date)
                 })(<DatePicker
                   allowClear={false}
                   format="YYYY-MM-DD HH:mm:ss"

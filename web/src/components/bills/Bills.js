@@ -14,10 +14,10 @@ class Bills extends Component {
 
   createHandler(values) {
     console.log(values)
-    // this.props.dispatch({
-    //   type: 'bills/create',
-    //   payload: values
-    // })
+    this.props.dispatch({
+      type: 'bills/create',
+      payload: values
+    })
   }
 
   editHandler(id, values) {
@@ -38,7 +38,7 @@ class Bills extends Component {
         <BillModal
           modalKey={Math.random()}
           title="修正该笔记录"
-          record={{}}
+          record={record}
           accounts={accounts}
           categories={categories}
           members={members}
