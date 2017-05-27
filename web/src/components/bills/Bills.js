@@ -1,11 +1,53 @@
 import React, { Component } from 'react'
-import { Table, Button } from 'antd'
+import { Table, Button, Popconfirm } from 'antd'
 import styles from './Bills.css'
 import BillModal from './BillModal'
 
 class Bills extends Component {
+
+  deleteHandler(id) {
+    this.props.dispatch({
+      type: 'bills/remove',
+      payload: id
+    })
+  }
+
   createHandler(values) {
     console.log(values)
+    // this.props.dispatch({
+    //   type: 'bills/create',
+    //   payload: values
+    // })
+  }
+
+  editHandler(id, values) {
+    console.log(values)
+    // this.props.dispatch({
+    //   type: 'bills/patch',
+    //   payload: { id, values }
+    // })
+  }
+
+  renderActions(text, record) {
+    const { accounts, categories, members } = this.props
+    return (
+      <span className={styles.action}>
+        <Popconfirm title="要删除吗，这个类别可能已经在使用了？" onConfirm={this.deleteHandler.bind(this, record.id)} okText="删除" cancelText="算了">
+          <a href="">删除</a>
+        </Popconfirm>
+        <BillModal
+          modalKey={Math.random()}
+          title="修正该笔记录"
+          record={{}}
+          accounts={accounts}
+          categories={categories}
+          members={members}
+          onOk={this.editHandler.bind(this, record.id)}
+        >
+          <a href="">编辑</a>
+        </BillModal>
+      </span>
+    )
   }
 
   render() {
@@ -70,6 +112,7 @@ class Bills extends Component {
           <Table.Column
             title="操作"
             key="actions"
+            render={this.renderActions.bind(this)}
           />
         </Table>
       </div>

@@ -10,3 +10,7 @@
 .currency {
   width: 60px;
 }
+
+.action a {
+  margin: 0 .5em;
+}
