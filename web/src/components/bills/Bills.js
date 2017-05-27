@@ -21,11 +21,10 @@ class Bills extends Component {
   }
 
   editHandler(id, values) {
-    console.log(values)
-    // this.props.dispatch({
-    //   type: 'bills/patch',
-    //   payload: { id, values }
-    // })
+    this.props.dispatch({
+      type: 'bills/patch',
+      payload: { id, values }
+    })
   }
 
   renderActions(text, record) {
