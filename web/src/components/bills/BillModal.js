@@ -23,6 +23,7 @@ class BillModal extends Component {
       if (err) return
       const values = {
         ...fieldsValue,
+        money: parseFloat(fieldsValue.money),
         bill_date: fieldsValue.bill_date.format('YYYY-MM-DD HH:mm:ss')
       }
       onOk(values)
@@ -152,10 +153,10 @@ class BillModal extends Component {
                 })(
                   <Select>
                     {
-                      accounts.map((category) => {
+                      accounts.map((account) => {
                         return (
-                          <Select.Option key={category.id} value={`${category.id}`}>
-                            {category.title}
+                          <Select.Option key={account.id} value={`${account.id}`}>
+                            {account.title}
                           </Select.Option>
                         )
                       })
