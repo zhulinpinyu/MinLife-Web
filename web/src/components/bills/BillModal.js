@@ -19,10 +19,13 @@ class BillModal extends Component {
   handleSubmit(e) {
     e.preventDefault()
     const { form, onOk } = this.props
-    form.validateFields((err, values) => {
-      if (!err) {
-        onOk(values)
+    form.validateFields((err, fieldsValue) => {
+      if (err) return
+      const values = {
+        ...values,
+        bill_date: fieldsValue.bill_date.format('YYYY-MM-DD HH:mm:ss')
       }
+      onOk(values)
       this.hideModalHandler()
     })
   }
@@ -106,8 +109,19 @@ class BillModal extends Component {
             >
               {
                 getFieldDecorator('money', {
-                  initialValue: money
-                })(<Input type="number" addonAfter={prefixSelector} />)
+                  initialValue: money,
+                  rules: [{
+                    required: true,
+                    type: 'float',
+                    validator: (rule, value, callback) => {
+                      if (value > 0) {
+                        callback();
+                        return;
+                      }
+                      callback('请正确填写金额');
+                    }
+                  }]
+                })(<Input addonAfter={prefixSelector} />)
               }
             </Form.Item>
             <Form.Item
@@ -116,7 +130,11 @@ class BillModal extends Component {
             >
               {
                 getFieldDecorator('category_id', {
-                  initialValue: category_id
+                  initialValue: category_id,
+                  rules: [{
+                    required: true,
+                    message: '选择类别'
+                  }]
                 })(<Cascader expandTrigger="hover" options={options} />)
               }
             </Form.Item>
@@ -126,7 +144,11 @@ class BillModal extends Component {
             >
               {
                 getFieldDecorator('account_id', {
-                  initialValue: account_id
+                  initialValue: account_id,
+                  rules: [{
+                    required: true,
+                    message: '选择账户'
+                  }]
                 })(
                   <Select>
                     {
@@ -147,7 +169,11 @@ class BillModal extends Component {
             >
               {
                 getFieldDecorator('member_id', {
-                  initialValue: member_id
+                  initialValue: member_id,
+                  rules: [{
+                    required: true,
+                    message: '选择成员'
+                  }]
                 })(
                   <Select>
                     {
@@ -171,6 +197,7 @@ class BillModal extends Component {
                 getFieldDecorator('bill_date', {
                   initialValue: bill_date || moment(Date.now())
                 })(<DatePicker
+                  allowClear={false}
                   format="YYYY-MM-DD HH:mm:ss"
                   showTime
                 />)
