@@ -138,7 +138,7 @@ class BillModal extends Component {
                     required: true,
                     message: '选择类别'
                   }]
-                })(<Cascader expandTrigger="hover" options={options} />)
+                })(<Cascader placeholder="选择支出类别" expandTrigger="hover" options={options} />)
               }
             </Form.Item>
             <Form.Item
@@ -147,7 +147,7 @@ class BillModal extends Component {
             >
               {
                 getFieldDecorator('account_id', {
-                  initialValue: `${account_id}`,
+                  initialValue: account_id ? `${account_id}` : null,
                   rules: [{
                     required: true,
                     message: '选择账户'
@@ -172,7 +172,7 @@ class BillModal extends Component {
             >
               {
                 getFieldDecorator('member_id', {
-                  initialValue: `${member_id}`,
+                  initialValue: member_id ? `${member_id}` : null,
                   rules: [{
                     required: true,
                     message: '选择成员'
