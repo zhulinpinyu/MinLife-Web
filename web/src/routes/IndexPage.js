@@ -46,8 +46,8 @@ const mapStateToProps = ({ bills, categories, accounts, members }) => {
         ...bill,
         category: categories.list
           .find(cat => cat.id === bill.category_id[bill.category_id.length - 1]),
-        account: accounts.list.find(acc => acc.id === parseInt(bill.account_id, 10)),
-        member: members.list.find(mem => mem.id === parseInt(bill.member_id, 10))
+        account: accounts.list.find(acc => acc.id === bill.account_id),
+        member: members.list.find(mem => mem.id === bill.member_id)
       }
     }),
     categories: categories.list,

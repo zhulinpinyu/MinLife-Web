@@ -24,6 +24,8 @@ class BillModal extends Component {
       const values = {
         ...fieldsValue,
         money: parseFloat(fieldsValue.money),
+        account_id: parseInt(fieldsValue.account_id, 10),
+        member_id: parseInt(fieldsValue.member_id, 10),
         bill_date: fieldsValue.bill_date.format('YYYY-MM-DD HH:mm:ss')
       }
       onOk(values)
@@ -145,7 +147,7 @@ class BillModal extends Component {
             >
               {
                 getFieldDecorator('account_id', {
-                  initialValue: account_id,
+                  initialValue: `${account_id}`,
                   rules: [{
                     required: true,
                     message: '选择账户'
@@ -170,7 +172,7 @@ class BillModal extends Component {
             >
               {
                 getFieldDecorator('member_id', {
-                  initialValue: member_id,
+                  initialValue: `${member_id}`,
                   rules: [{
                     required: true,
                     message: '选择成员'

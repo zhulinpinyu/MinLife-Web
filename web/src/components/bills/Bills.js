@@ -13,7 +13,6 @@ class Bills extends Component {
   }
 
   createHandler(values) {
-    console.log(values)
     this.props.dispatch({
       type: 'bills/create',
       payload: values
