@@ -55,6 +55,7 @@ class CategoryModal extends Component {
           key={modalKey}
           title="添加新类别"
           visible={this.state.visible}
+          maskClosable={false}
           onOk={this.handleSubmit.bind(this)}
           onCancel={this.hideModalHandler.bind(this)}
         >

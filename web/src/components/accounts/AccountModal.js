@@ -47,6 +47,7 @@ class AccountModal extends Component {
           key={modalKey}
           title={modalTitle}
           visible={this.state.visible}
+          maskClosable={false}
           onOk={this.handleSubmit.bind(this)}
           onCancel={this.hideModalHandler.bind(this)}
         >
