@@ -18,8 +18,12 @@ class AccountModal extends Component {
   handleSubmit(e) {
     e.preventDefault()
     const { form, onOk } = this.props
-    form.validateFields((err, values) => {
+    form.validateFields((err, fieldsValue) => {
       if (err) return
+      const values = {
+        ...fieldsValue,
+        balance: parseFloat(fieldsValue.balance)
+      }
       onOk(values)
       this.hideModalHandler()
     })
