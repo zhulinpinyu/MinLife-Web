@@ -19,9 +19,8 @@ class AccountModal extends Component {
     e.preventDefault()
     const { form, onOk } = this.props
     form.validateFields((err, values) => {
-      if (!err) {
-        onOk(values)
-      }
+      if (err) return
+      onOk(values)
       this.hideModalHandler()
     })
   }
@@ -54,11 +53,12 @@ class AccountModal extends Component {
           <Form layout="horizontal" onSubmit={this.handleSubmit.bind(this)}>
             <Form.Item
               {...formItemLayout}
-              label="账户"
+              label="账户名称"
             >
               {
                 getFieldDecorator('title', {
-                  initialValue: title
+                  initialValue: title,
+                  rules: [{ required: true }]
                 })(<Input />)
               }
             </Form.Item>
@@ -68,7 +68,18 @@ class AccountModal extends Component {
             >
               {
                 getFieldDecorator('balance', {
-                  initialValue: balance
+                  initialValue: balance,
+                  rules: [{
+                    required: true,
+                    type: 'float',
+                    validator: (rule, value, callback) => {
+                      if (value > 0) {
+                        callback();
+                        return;
+                      }
+                      callback('请正确填写金额');
+                    }
+                  }]
                 })(<Input type="number" />)
               }
             </Form.Item>
