@@ -9,17 +9,16 @@ class CategoryModal extends Component {
   handleSubmit(e) {
     e.preventDefault()
     this.props.form.validateFields((err, values) => {
-      if (!err) {
-        this.props.dispatch({
-          type: 'categories/create',
-          payload: {
-            ...values,
-            parent_id: parseInt(values.parent_id, 10)
-          }
-        })
-        message.success('添加成功')
-        this.hideModalHandler()
-      }
+      if (err) return
+      this.props.dispatch({
+        type: 'categories/create',
+        payload: {
+          ...values,
+          parent_id: parseInt(values.parent_id, 10)
+        }
+      })
+      message.success('添加成功')
+      this.hideModalHandler()
     })
   }
 
@@ -66,7 +65,11 @@ class CategoryModal extends Component {
             >
               {
                 getFieldDecorator('title', {
-                  initialValue: title
+                  initialValue: title,
+                  rules: [{
+                    required: true,
+                    message: '请填写类别名称'
+                  }]
                 })(<Input />)
               }
             </Form.Item>
