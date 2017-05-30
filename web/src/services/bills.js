@@ -22,7 +22,8 @@ export const patch = async ({ id, values }) => {
   return Common.patch(`${BILL_URL}/${id}`, values)
 }
 
-export const remove = (id) => {
+export const remove = async (id) => {
+  await rollBackAccount(id)
   return Common.remove(`${BILL_URL}/${id}`)
 }
 
@@ -36,7 +37,7 @@ const updateAccount = async ({ account_id, money }) => {
   })
 }
 
-const rollBackAndUpdateAccount = async ({ id: bill_id, values }) => {
+const rollBackAccount = async (bill_id) => {
   const { data: { account_id, money } } = await fetchById(bill_id)
   const { data: { debt, balance } } = await Accounts.fetchById(account_id)
   // Rollback account balance
@@ -46,6 +47,11 @@ const rollBackAndUpdateAccount = async ({ id: bill_id, values }) => {
       balance: debt ? (balance - money) : (balance + money)
     }
   })
+}
+
+const rollBackAndUpdateAccount = async ({ id: bill_id, values }) => {
+  // Rollback account balance
+  await rollBackAccount(bill_id)
   // Update Account Balance
   await updateAccount(values)
 }
