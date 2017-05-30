@@ -77,7 +77,7 @@ class AccountModal extends Component {
                     required: true,
                     type: 'float',
                     validator: (rule, value, callback) => {
-                      if (value > 0) {
+                      if (value >= 0) {
                         callback();
                         return;
                       }
