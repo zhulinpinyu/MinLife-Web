@@ -23,19 +23,11 @@ export const remove = (id) => {
 }
 
 const updateAccount = async ({ account_id, money }) => {
-  const { data: account } = await Accounts.fetchById(account_id)
-  const { debt, balance } = account
-  let newBalance = balance
-  if (debt) {
-    newBalance += money
-  } else {
-    newBalance -= money
-  }
+  const { data: { debt, balance } } = await Accounts.fetchById(account_id)
   Accounts.patch({
     id: account_id,
     values: {
-      ...newBalance,
-      balance: newBalance
+      balance: debt ? (balance + money) : (balance - money)
     }
   })
 }
