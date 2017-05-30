@@ -12,13 +12,13 @@ export const fetchById = (id) => {
   return request(`${BILL_URL}/${id}`)
 }
 
-export const create = (values) => {
-  updateAccount(values)
+export const create = async (values) => {
+  await updateAccount(values)
   return Common.create(BILL_URL, values)
 }
 
-export const patch = ({ id, values }) => {
-  rollBackAndUpdateAccount({ id, values })
+export const patch = async ({ id, values }) => {
+  await rollBackAndUpdateAccount({ id, values })
   return Common.patch(`${BILL_URL}/${id}`, values)
 }
 
@@ -28,7 +28,7 @@ export const remove = (id) => {
 
 const updateAccount = async ({ account_id, money }) => {
   const { data: { debt, balance } } = await Accounts.fetchById(account_id)
-  Accounts.patch({
+  await Accounts.patch({
     id: account_id,
     values: {
       balance: debt ? (balance + money) : (balance - money)
@@ -47,5 +47,5 @@ const rollBackAndUpdateAccount = async ({ id: bill_id, values }) => {
     }
   })
   // Update Account Balance
-  updateAccount(values)
+  await updateAccount(values)
 }
