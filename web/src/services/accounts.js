@@ -8,6 +8,10 @@ export const fetch = () => {
   return request(ACCOUNT_URL)
 }
 
+export const fetchById = (id) => {
+  return request(`${ACCOUNT_URL}/${id}`)
+}
+
 export const create = (values) => {
   return Common.create(ACCOUNT_URL, values)
 }
