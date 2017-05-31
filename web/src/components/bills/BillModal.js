@@ -33,7 +33,7 @@ class BillModal extends Component {
     })
   }
 
-  renderPaid() {
+  renderPaidForm() {
     const formItemLayout = {
       labelCol: { span: 6 },
       wrapperCol: { span: 14 }
@@ -191,6 +191,36 @@ class BillModal extends Component {
     )
   }
 
+  renderIncomeForm() {
+    return (
+      <div>
+        收入表单
+      </div>
+    )
+  }
+
+  renderTransferForm() {
+    return (
+      <div>
+        收入表单
+      </div>
+    )
+  }
+
+  renderForm() {
+    const { record: { type } } = this.props
+    switch (type) {
+      case '支出':
+        return this.renderPaidForm()
+      case '收入':
+        return this.renderIncomeForm()
+      case '转账':
+        return this.renderTransferForm()
+      default:
+        return this.renderPaidForm()
+    }
+  }
+
   render() {
     const {
       children,
@@ -229,7 +259,7 @@ class BillModal extends Component {
                 </Radio.Group>
               )}
             </Form.Item>
-            {this.renderPaid()}
+            {this.renderForm()}
           </Form>
         </Modal>
       </span>
