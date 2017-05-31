@@ -33,21 +33,17 @@ class BillModal extends Component {
     })
   }
 
-  render() {
+  renderPaid() {
     const formItemLayout = {
       labelCol: { span: 6 },
       wrapperCol: { span: 14 }
     }
     const {
-      children,
       accounts,
       members,
       categories,
-      modalKey,
-      title: modalTitle,
       form: { getFieldDecorator },
       record: {
-        type,
         money,
         currency,
         bill_date,
@@ -79,6 +75,132 @@ class BillModal extends Component {
             .map(subCat => ({ value: subCat.id, label: subCat.title }))
         }
       })
+    return (
+      <div>
+        <Form.Item
+          {...formItemLayout}
+          label="金额"
+        >
+          {
+            getFieldDecorator('money', {
+              initialValue: money,
+              rules: [{
+                required: true,
+                type: 'float',
+                validator: (rule, value, callback) => {
+                  if (value > 0) {
+                    callback();
+                    return;
+                  }
+                  callback('请正确填写金额');
+                }
+              }]
+            })(<Input addonAfter={prefixSelector} />)
+          }
+        </Form.Item>
+        <Form.Item
+          {...formItemLayout}
+          label="类别"
+        >
+          {
+            getFieldDecorator('category_id', {
+              initialValue: category_id,
+              rules: [{
+                required: true,
+                message: '选择类别'
+              }]
+            })(<Cascader placeholder="选择支出类别" expandTrigger="hover" options={options} />)
+          }
+        </Form.Item>
+        <Form.Item
+          {...formItemLayout}
+          label="账户"
+        >
+          {
+            getFieldDecorator('account_id', {
+              initialValue: account_id ? `${account_id}` : null,
+              rules: [{
+                required: true,
+                message: '选择账户'
+              }]
+            })(
+              <Select>
+                {
+                  accounts.map((account) => {
+                    return (
+                      <Select.Option key={account.id} value={`${account.id}`}>
+                        {account.title}
+                      </Select.Option>
+                    )
+                  })
+                }
+              </Select>
+          )}
+        </Form.Item>
+        <Form.Item
+          {...formItemLayout}
+          label="成员"
+        >
+          {
+            getFieldDecorator('member_id', {
+              initialValue: member_id ? `${member_id}` : null,
+              rules: [{
+                required: true,
+                message: '选择成员'
+              }]
+            })(
+              <Select>
+                {
+                  members.map((member) => {
+                    return (
+                      <Select.Option key={member.id} value={`${member.id}`}>
+                        {member.title}
+                      </Select.Option>
+                    )
+                  })
+                }
+              </Select>
+            )
+          }
+        </Form.Item>
+        <Form.Item
+          {...formItemLayout}
+          label="日期"
+        >
+          {
+            getFieldDecorator('bill_date', {
+              initialValue: moment(bill_date)
+            })(<DatePicker
+              allowClear={false}
+              format="YYYY-MM-DD HH:mm:ss"
+              showTime
+            />)
+          }
+        </Form.Item>
+        <Form.Item
+          {...formItemLayout}
+          label="备注"
+        >
+          {
+            getFieldDecorator('notes', {
+              initialValue: notes
+            })(<Input type="textarea" />)
+          }
+        </Form.Item>
+      </div>
+    )
+  }
+
+  render() {
+    const {
+      children,
+      modalKey,
+      title: modalTitle,
+      form: { getFieldDecorator },
+      record: {
+        type
+      }
+    } = this.props
 
     return (
       <span>
@@ -107,116 +229,7 @@ class BillModal extends Component {
                 </Radio.Group>
               )}
             </Form.Item>
-            <Form.Item
-              {...formItemLayout}
-              label="金额"
-            >
-              {
-                getFieldDecorator('money', {
-                  initialValue: money,
-                  rules: [{
-                    required: true,
-                    type: 'float',
-                    validator: (rule, value, callback) => {
-                      if (value > 0) {
-                        callback();
-                        return;
-                      }
-                      callback('请正确填写金额');
-                    }
-                  }]
-                })(<Input addonAfter={prefixSelector} />)
-              }
-            </Form.Item>
-            <Form.Item
-              {...formItemLayout}
-              label="类别"
-            >
-              {
-                getFieldDecorator('category_id', {
-                  initialValue: category_id,
-                  rules: [{
-                    required: true,
-                    message: '选择类别'
-                  }]
-                })(<Cascader placeholder="选择支出类别" expandTrigger="hover" options={options} />)
-              }
-            </Form.Item>
-            <Form.Item
-              {...formItemLayout}
-              label="账户"
-            >
-              {
-                getFieldDecorator('account_id', {
-                  initialValue: account_id ? `${account_id}` : null,
-                  rules: [{
-                    required: true,
-                    message: '选择账户'
-                  }]
-                })(
-                  <Select>
-                    {
-                      accounts.map((account) => {
-                        return (
-                          <Select.Option key={account.id} value={`${account.id}`}>
-                            {account.title}
-                          </Select.Option>
-                        )
-                      })
-                    }
-                  </Select>
-              )}
-            </Form.Item>
-            <Form.Item
-              {...formItemLayout}
-              label="成员"
-            >
-              {
-                getFieldDecorator('member_id', {
-                  initialValue: member_id ? `${member_id}` : null,
-                  rules: [{
-                    required: true,
-                    message: '选择成员'
-                  }]
-                })(
-                  <Select>
-                    {
-                      members.map((member) => {
-                        return (
-                          <Select.Option key={member.id} value={`${member.id}`}>
-                            {member.title}
-                          </Select.Option>
-                        )
-                      })
-                    }
-                  </Select>
-                )
-              }
-            </Form.Item>
-            <Form.Item
-              {...formItemLayout}
-              label="日期"
-            >
-              {
-                getFieldDecorator('bill_date', {
-                  initialValue: moment(bill_date)
-                })(<DatePicker
-                  allowClear={false}
-                  format="YYYY-MM-DD HH:mm:ss"
-                  showTime
-                />)
-              }
-            </Form.Item>
-            <Form.Item
-              {...formItemLayout}
-              label="备注"
-            >
-              {
-                getFieldDecorator('notes', {
-                  initialValue: notes
-                })(<Input type="textarea" />)
-              }
-            </Form.Item>
+            {this.renderPaid()}
           </Form>
         </Modal>
       </span>
