@@ -4,7 +4,15 @@ import moment from 'moment'
 
 class BillModal extends Component {
   state = {
-    visible: false
+    visible: false,
+    type: '支出'
+  }
+
+  handleBillTypeChange = (e) => {
+    this.setState({
+      ...this.state,
+      type: e.target.value
+    })
   }
 
   showModalHandler(e) {
@@ -202,14 +210,18 @@ class BillModal extends Component {
   renderTransferForm() {
     return (
       <div>
-        收入表单
+        转账表单
       </div>
     )
   }
 
   renderForm() {
     const { record: { type } } = this.props
-    switch (type) {
+    const billType = type || this.state.type
+    console.log(`record type: ${type}`)
+    console.log(`state type: ${this.state.type}`)
+    console.log(`billType: ${billType}`)
+    switch (billType) {
       case '支出':
         return this.renderPaidForm()
       case '收入':
@@ -250,9 +262,9 @@ class BillModal extends Component {
               wrapperCol={{ offset: 6, span: 18 }}
             >
               {getFieldDecorator('type', {
-                initialValue: type || '支出'
+                initialValue: type || this.state.type
               })(
-                <Radio.Group>
+                <Radio.Group onChange={this.handleBillTypeChange}>
                   <Radio.Button value="支出">支出</Radio.Button>
                   <Radio.Button value="收入">收入</Radio.Button>
                   <Radio.Button value="转账">转账</Radio.Button>
