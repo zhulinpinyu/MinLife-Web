@@ -331,9 +331,129 @@ class BillModal extends Component {
   }
 
   renderTransferForm() {
+    const formItemLayout = {
+      labelCol: { span: 6 },
+      wrapperCol: { span: 14 }
+    }
+    const {
+      accounts,
+      form: { getFieldDecorator },
+      record: {
+        money,
+        currency,
+        bill_date,
+        account_id,
+        notes
+      }
+    } = this.props
+
+    const prefixSelector = getFieldDecorator('currency', {
+      initialValue: currency || '￥',
+    })(
+      <Select>
+        <Select.Option value="￥">RMB(￥)</Select.Option>
+        <Select.Option value="$">USD($)</Select.Option>
+        <Select.Option value="HK$">HKD(HK$)</Select.Option>
+      </Select>
+    )
+
     return (
       <div>
-        转账表单
+        <Form.Item
+          {...formItemLayout}
+          label="金额"
+        >
+          {
+            getFieldDecorator('money', {
+              initialValue: money,
+              rules: [{
+                required: true,
+                type: 'float',
+                validator: (rule, value, callback) => {
+                  if (value > 0) {
+                    callback();
+                    return;
+                  }
+                  callback('请正确填写金额');
+                }
+              }]
+            })(<Input addonAfter={prefixSelector} />)
+          }
+        </Form.Item>
+        <Form.Item
+          {...formItemLayout}
+          label="支出账户"
+        >
+          {
+            getFieldDecorator('account_id', {
+              initialValue: account_id ? `${account_id}` : null,
+              rules: [{
+                required: true,
+                message: '选择账户'
+              }]
+            })(
+              <Select>
+                {
+                  accounts.map((account) => {
+                    return (
+                      <Select.Option key={account.id} value={`${account.id}`}>
+                        {account.title}
+                      </Select.Option>
+                    )
+                  })
+                }
+              </Select>
+          )}
+        </Form.Item>
+        <Form.Item
+          {...formItemLayout}
+          label="转入账户"
+        >
+          {
+            getFieldDecorator('account_id', {
+              initialValue: account_id ? `${account_id}` : null,
+              rules: [{
+                required: true,
+                message: '选择账户'
+              }]
+            })(
+              <Select>
+                {
+                  accounts.map((account) => {
+                    return (
+                      <Select.Option key={account.id} value={`${account.id}`}>
+                        {account.title}
+                      </Select.Option>
+                    )
+                  })
+                }
+              </Select>
+          )}
+        </Form.Item>
+        <Form.Item
+          {...formItemLayout}
+          label="日期"
+        >
+          {
+            getFieldDecorator('bill_date', {
+              initialValue: moment(bill_date)
+            })(<DatePicker
+              allowClear={false}
+              format="YYYY-MM-DD HH:mm:ss"
+              showTime
+            />)
+          }
+        </Form.Item>
+        <Form.Item
+          {...formItemLayout}
+          label="备注"
+        >
+          {
+            getFieldDecorator('notes', {
+              initialValue: notes
+            })(<Input type="textarea" />)
+          }
+        </Form.Item>
       </div>
     )
   }
