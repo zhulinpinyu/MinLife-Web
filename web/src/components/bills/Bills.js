@@ -62,7 +62,7 @@ class Bills extends Component {
             categories={categories}
             members={members}
           >
-            <Button type="primary" icon="plus">
+            <Button size="large" type="primary" icon="plus">
                记一笔
             </Button>
           </BillModal>
