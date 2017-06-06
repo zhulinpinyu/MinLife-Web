@@ -8,7 +8,7 @@ import TransferForm from './TransferForm'
 class BillModal extends Component {
   state = {
     visible: false,
-    type: '支出'
+    type: 'PAYMENT'
   }
 
   handleBillTypeChange = (e) => {
@@ -72,11 +72,11 @@ class BillModal extends Component {
     const { record: { type } } = this.props
     const billType = type || this.state.type
     switch (billType) {
-      case '支出':
+      case 'PAYMENT':
         return this.renderPaidForm()
-      case '收入':
+      case 'INCOME':
         return this.renderIncomeForm()
-      case '转账':
+      case 'TRANSFER':
         return this.renderTransferForm()
       default:
         return this.renderPaidForm()

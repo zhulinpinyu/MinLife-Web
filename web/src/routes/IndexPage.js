@@ -42,12 +42,25 @@ class IndexPage extends Component {
 const mapStateToProps = ({ bills, categories, accounts, members }) => {
   return {
     bills: bills.list.map((bill) => {
-      return {
-        ...bill,
-        category: categories.list
-          .find(cat => cat.id === bill.category_id[bill.category_id.length - 1]),
-        account: accounts.list.find(acc => acc.id === bill.account_id),
-        member: members.list.find(mem => mem.id === bill.member_id)
+      switch (bill.type) {
+        case 'PAYMENT':
+          return {
+            ...bill,
+            category: categories.list
+              .find(cat => cat.id === bill.category_id[bill.category_id.length - 1]),
+            account: accounts.list.find(acc => acc.id === bill.account_id),
+            member: members.list.find(mem => mem.id === bill.member_id)
+          }
+        case 'INCOME':
+          return {
+            ...bill,
+            account: accounts.list.find(acc => acc.id === bill.account_id),
+            member: members.list.find(mem => mem.id === bill.member_id)
+          }
+        case 'TRANSFER':
+          return bill
+        default:
+          return bill
       }
     }),
     categories: categories.list,
