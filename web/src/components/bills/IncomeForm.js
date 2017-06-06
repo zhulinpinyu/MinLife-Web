@@ -11,7 +11,7 @@ class IncomeForm extends Component {
     //   if (err) return
     //   const values = {
     //     ...fieldsValue,
-    //     type: '收入',
+    //     type: 'INCOME',
     //     money: parseFloat(fieldsValue.money),
     //     account_id: parseInt(fieldsValue.account_id, 10),
     //     member_id: parseInt(fieldsValue.member_id, 10),

@@ -11,7 +11,7 @@ class PaymentForm extends Component {
       if (err) return
       const values = {
         ...fieldsValue,
-        type: '支出',
+        type: 'PAYMENT',
         money: parseFloat(fieldsValue.money),
         account_id: parseInt(fieldsValue.account_id, 10),
         member_id: parseInt(fieldsValue.member_id, 10),

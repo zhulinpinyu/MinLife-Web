@@ -11,7 +11,7 @@ class TransferForm extends Component {
     //   if (err) return
     //   const values = {
     //     ...fieldsValue,
-    //     type: '转账',
+    //     type: 'TRANSFER',
     //     money: parseFloat(fieldsValue.money),
     //     account_id: parseInt(fieldsValue.account_id, 10),
     //     bill_date: fieldsValue.bill_date.format('YYYY-MM-DD HH:mm:ss')
