@@ -17,18 +17,16 @@ export const create = async (values) => {
   switch (type) {
     case 'PAYMENT':
       await updatePaymentAccount(values)
-      break
+      return Common.create(BILL_URL, values)
     case 'INCOME':
       await updateIncomeAccount(values)
-      break
+      return Common.create(BILL_URL, values)
     case 'TRANSFER':
       await updateTransferAccount(values)
       break
     default:
       break
   }
-
-  return Common.create(BILL_URL, values)
 }
 
 export const patch = async ({ id, values }) => {
@@ -51,8 +49,14 @@ const updatePaymentAccount = async ({ account_id, money }) => {
   })
 }
 
-const updateIncomeAccount = async (values) => {
-  console.log(values)
+const updateIncomeAccount = async ({ account_id, money }) => {
+  const { data: { balance } } = await Accounts.fetchById(account_id)
+  await Accounts.patch({
+    id: account_id,
+    values: {
+      balance: (balance + money)
+    }
+  })
 }
 
 const updateTransferAccount = async (values) => {

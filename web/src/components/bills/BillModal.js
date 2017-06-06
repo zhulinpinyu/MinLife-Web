@@ -28,22 +28,8 @@ class BillModal extends Component {
   }
 
   handleSubmit(values) {
-    // const { form, onOk } = this.props
-    // form.validateFields((err, fieldsValue) => {
-    //   if (err) return
-    //   const values = {
-    //     ...fieldsValue,
-    //     money: parseFloat(fieldsValue.money),
-    //     account_id: parseInt(fieldsValue.account_id, 10),
-    //     member_id: parseInt(fieldsValue.member_id, 10),
-    //     bill_date: fieldsValue.bill_date.format('YYYY-MM-DD HH:mm:ss')
-    //   }
-    //   onOk(values)
-    //   this.hideModalHandler()
-    // })
     this.props.onOk(values)
     this.hideModalHandler()
-    console.log(values)
   }
 
   renderPaidForm() {

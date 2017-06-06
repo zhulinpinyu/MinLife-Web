@@ -6,19 +6,19 @@ class IncomeForm extends Component {
 
   handleSubmit(e) {
     e.preventDefault()
-    // const { form, onOk } = this.props
-    // form.validateFields((err, fieldsValue) => {
-    //   if (err) return
-    //   const values = {
-    //     ...fieldsValue,
-    //     type: 'INCOME',
-    //     money: parseFloat(fieldsValue.money),
-    //     account_id: parseInt(fieldsValue.account_id, 10),
-    //     member_id: parseInt(fieldsValue.member_id, 10),
-    //     bill_date: fieldsValue.bill_date.format('YYYY-MM-DD HH:mm:ss')
-    //   }
-    //   onOk(values)
-    // })
+    const { form, onOk } = this.props
+    form.validateFields((err, fieldsValue) => {
+      if (err) return
+      const values = {
+        ...fieldsValue,
+        type: 'INCOME',
+        money: parseFloat(fieldsValue.money),
+        account_id: parseInt(fieldsValue.account_id, 10),
+        member_id: parseInt(fieldsValue.member_id, 10),
+        bill_date: fieldsValue.bill_date.format('YYYY-MM-DD HH:mm:ss')
+      }
+      onOk(values)
+    })
   }
 
   render() {
@@ -87,7 +87,7 @@ class IncomeForm extends Component {
             })(
               <Select>
                 {
-                  accounts.map((account) => {
+                  accounts.filter(acc => !acc.debt).map((account) => {
                     return (
                       <Select.Option key={account.id} value={`${account.id}`}>
                         {account.title}
