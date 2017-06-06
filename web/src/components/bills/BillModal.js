@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import { Modal, Form, Input, Radio, Select, DatePicker } from 'antd'
-import moment from 'moment'
+import { Modal, Form, Radio } from 'antd'
 
 import PaymentForm from './PaymentForm'
 import IncomeForm from './IncomeForm'
+import TransferForm from './TransferForm'
 
 class BillModal extends Component {
   state = {
@@ -72,139 +72,19 @@ class BillModal extends Component {
   }
 
   renderTransferForm() {
-    const formItemLayout = {
-      labelCol: { span: 6 },
-      wrapperCol: { span: 14 }
-    }
-    const {
-      accounts,
-      form: { getFieldDecorator },
-      record: {
-        money,
-        currency,
-        bill_date,
-        account_id,
-        notes
-      }
-    } = this.props
-
-    const prefixSelector = getFieldDecorator('currency', {
-      initialValue: currency || '￥',
-    })(
-      <Select>
-        <Select.Option value="￥">RMB(￥)</Select.Option>
-        <Select.Option value="$">USD($)</Select.Option>
-        <Select.Option value="HK$">HKD(HK$)</Select.Option>
-      </Select>
-    )
-
+    const { accounts, record } = this.props
     return (
-      <div>
-        <Form.Item
-          {...formItemLayout}
-          label="金额"
-        >
-          {
-            getFieldDecorator('money', {
-              initialValue: money,
-              rules: [{
-                required: true,
-                type: 'float',
-                validator: (rule, value, callback) => {
-                  if (value > 0) {
-                    callback();
-                    return;
-                  }
-                  callback('请正确填写金额');
-                }
-              }]
-            })(<Input addonAfter={prefixSelector} />)
-          }
-        </Form.Item>
-        <Form.Item
-          {...formItemLayout}
-          label="支出账户"
-        >
-          {
-            getFieldDecorator('account_id', {
-              initialValue: account_id ? `${account_id}` : null,
-              rules: [{
-                required: true,
-                message: '选择账户'
-              }]
-            })(
-              <Select>
-                {
-                  accounts.map((account) => {
-                    return (
-                      <Select.Option key={account.id} value={`${account.id}`}>
-                        {account.title}
-                      </Select.Option>
-                    )
-                  })
-                }
-              </Select>
-          )}
-        </Form.Item>
-        <Form.Item
-          {...formItemLayout}
-          label="转入账户"
-        >
-          {
-            getFieldDecorator('account_id', {
-              initialValue: account_id ? `${account_id}` : null,
-              rules: [{
-                required: true,
-                message: '选择账户'
-              }]
-            })(
-              <Select>
-                {
-                  accounts.map((account) => {
-                    return (
-                      <Select.Option key={account.id} value={`${account.id}`}>
-                        {account.title}
-                      </Select.Option>
-                    )
-                  })
-                }
-              </Select>
-          )}
-        </Form.Item>
-        <Form.Item
-          {...formItemLayout}
-          label="日期"
-        >
-          {
-            getFieldDecorator('bill_date', {
-              initialValue: moment(bill_date)
-            })(<DatePicker
-              allowClear={false}
-              format="YYYY-MM-DD HH:mm:ss"
-              showTime
-            />)
-          }
-        </Form.Item>
-        <Form.Item
-          {...formItemLayout}
-          label="备注"
-        >
-          {
-            getFieldDecorator('notes', {
-              initialValue: notes
-            })(<Input type="textarea" />)
-          }
-        </Form.Item>
-      </div>
+      <TransferForm
+        accounts={accounts}
+        onOk={this.handleSubmit.bind(this)}
+        record={record}
+      />
     )
   }
 
   renderForm() {
     const { record: { type } } = this.props
     const billType = type || this.state.type
-    // console.log(`record type: ${type}`)
-    // console.log(`state type: ${this.state.type}`)
-    // console.log(`billType: ${billType}`)
     switch (billType) {
       case '支出':
         return this.renderPaidForm()
