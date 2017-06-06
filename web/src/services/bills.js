@@ -60,6 +60,7 @@ const updateIncomeAccount = async ({ account_id, money }) => {
 }
 
 const updateTransferAccount = async (values) => {
+  // 转账可以分解为payment和income 只需配置对应参数即可
   console.log(values)
 }
 
@@ -77,6 +78,8 @@ const rollBackAccount = async (bill_id) => {
       break
     case 'TRANSFER':
       // await rollBackTransferAccount(values)
+      // 转账rollBack也需分解为两个操作 分别为回滚支出账户也就是PAYMENT；回滚转入账户也就是INCOME；
+      //  需要做的就是再次重构账户rollback函数
       break
     default:
       break
