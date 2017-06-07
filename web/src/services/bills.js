@@ -120,8 +120,8 @@ const rollbackTransferAccount = async (bill) => {
     money
   } = bill
 
-  rollbackIncomeAccount({ account_id: income_account_id, money })
-  rollbackPaymentAccount({ account_id: payment_account_id, money })
+  await rollbackIncomeAccount({ account_id: income_account_id, money })
+  await rollbackPaymentAccount({ account_id: payment_account_id, money })
 }
 
 const rollbackAndUpdateAccount = async ({ id: bill_id, values }) => {
