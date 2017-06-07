@@ -114,9 +114,9 @@ class BillModal extends Component {
               initialValue: type || this.state.type
             })(
               <Radio.Group onChange={this.handleBillTypeChange}>
-                <Radio.Button value="支出">支出</Radio.Button>
-                <Radio.Button value="收入">收入</Radio.Button>
-                <Radio.Button value="转账">转账</Radio.Button>
+                <Radio.Button value="PAYMENT">支出</Radio.Button>
+                <Radio.Button value="INCOME">收入</Radio.Button>
+                <Radio.Button value="TRANSFER">转账</Radio.Button>
               </Radio.Group>
             )}
           </Form.Item>
