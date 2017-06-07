@@ -6,18 +6,19 @@ class TransferForm extends Component {
 
   handleSubmit(e) {
     e.preventDefault()
-    // const { form, onOk } = this.props
-    // form.validateFields((err, fieldsValue) => {
-    //   if (err) return
-    //   const values = {
-    //     ...fieldsValue,
-    //     type: 'TRANSFER',
-    //     money: parseFloat(fieldsValue.money),
-    //     account_id: parseInt(fieldsValue.account_id, 10),
-    //     bill_date: fieldsValue.bill_date.format('YYYY-MM-DD HH:mm:ss')
-    //   }
-    //   onOk(values)
-    // })
+    const { form, onOk } = this.props
+    form.validateFields((err, fieldsValue) => {
+      if (err) return
+      const values = {
+        ...fieldsValue,
+        type: 'TRANSFER',
+        money: parseFloat(fieldsValue.money),
+        payment_account_id: parseInt(fieldsValue.payment_account_id, 10),
+        income_account_id: parseInt(fieldsValue.income_account_id, 10),
+        bill_date: fieldsValue.bill_date.format('YYYY-MM-DD HH:mm:ss')
+      }
+      onOk(values)
+    })
   }
 
   render() {
@@ -86,7 +87,7 @@ class TransferForm extends Component {
               <Select>
                 {
                   // 支出账户只能是debit账户而非debt账户
-                  accounts.map((account) => {
+                  accounts.filter(acc => !acc.debt).map((account) => {
                     return (
                       <Select.Option key={account.id} value={`${account.id}`}>
                         {account.title}
