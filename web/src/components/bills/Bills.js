@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Table, Button, Popconfirm, Icon } from 'antd'
+import { Table, Button, Popconfirm, Icon, Tag } from 'antd'
 import styles from './Bills.css'
 import BillModal from './BillModal'
 
@@ -81,6 +81,23 @@ class Bills extends Component {
             title="类型"
             dataIndex="type"
             key="type"
+            render={(text) => {
+              switch (text) {
+                case 'PAYMENT':
+                  return (
+                    <Tag color="#ff0000">支出</Tag>
+                  )
+                case 'INCOME':
+                  return (
+                    <Tag color="#87d068">收入</Tag>
+                  )
+                case 'TRANSFER':
+                  return (
+                    <Tag color="#2db7f5">转账</Tag>
+                  )
+                default:
+              }
+            }}
           />
           <Table.Column
             title="金额"
