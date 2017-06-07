@@ -58,7 +58,11 @@ const mapStateToProps = ({ bills, categories, accounts, members }) => {
             member: members.list.find(mem => mem.id === bill.member_id)
           }
         case 'TRANSFER':
-          return bill
+          return {
+            ...bill,
+            payment_account: accounts.list.find(acc => acc.id === bill.payment_account_id),
+            income_account: accounts.list.find(acc => acc.id === bill.income_account_id)
+          }
         default:
           return bill
       }

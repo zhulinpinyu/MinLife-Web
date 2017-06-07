@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Table, Button, Popconfirm } from 'antd'
+import { Table, Button, Popconfirm, Icon } from 'antd'
 import styles from './Bills.css'
 import BillModal from './BillModal'
 
@@ -91,6 +91,18 @@ class Bills extends Component {
             title="账户"
             dataIndex="account.title"
             key="account"
+            render={(text, { payment_account, income_account, type }) => {
+              if (type === 'TRANSFER') {
+                return (
+                  <span>
+                    {payment_account.title}
+                    <Icon type="swap-right" />
+                    {income_account.title}
+                  </span>
+                )
+              }
+              return text
+            }}
           />
           <Table.Column
             title="类别"
