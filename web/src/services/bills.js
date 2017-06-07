@@ -17,16 +17,17 @@ export const create = async (values) => {
   switch (type) {
     case 'PAYMENT':
       await updatePaymentAccount(values)
-      return Common.create(BILL_URL, values)
+      break
     case 'INCOME':
       await updateIncomeAccount(values)
-      return Common.create(BILL_URL, values)
+      break
     case 'TRANSFER':
       await updateTransferAccount(values)
       break
     default:
       break
   }
+  return Common.create(BILL_URL, values)
 }
 
 export const patch = async ({ id, values }) => {
@@ -61,7 +62,13 @@ const updateIncomeAccount = async ({ account_id, money }) => {
 
 const updateTransferAccount = async (values) => {
   // 转账可以分解为payment和income 只需配置对应参数即可
-  console.log(values)
+  const {
+    payment_account_id,
+    income_account_id,
+    money
+  } = values
+  await updatePaymentAccount({ account_id: payment_account_id, money })
+  await updateIncomeAccount({ account_id: income_account_id, money })
 }
 
 const rollbackAccount = async (bill_id) => {
@@ -76,8 +83,6 @@ const rollbackAccount = async (bill_id) => {
       break
     case 'TRANSFER':
       await rollbackTransferAccount(bill)
-      // 转账rollBack也需分解为两个操作 分别为回滚支出账户也就是PAYMENT；回滚转入账户也就是INCOME；
-      //  需要做的就是再次重构账户rollback函数
       break
     default:
       break
