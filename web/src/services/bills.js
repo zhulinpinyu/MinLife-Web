@@ -13,6 +13,21 @@ export const fetchById = (id) => {
 }
 
 export const create = async (values) => {
+  await updateAccount(values)
+  return Common.create(BILL_URL, values)
+}
+
+export const patch = async ({ id, values }) => {
+  await rollbackAndUpdateAccount({ id, values })
+  return Common.patch(`${BILL_URL}/${id}`, values)
+}
+
+export const remove = async (id) => {
+  await rollbackAccount(id)
+  return Common.remove(`${BILL_URL}/${id}`)
+}
+
+const updateAccount = async (values) => {
   const { type } = values
   switch (type) {
     case 'PAYMENT':
@@ -27,17 +42,6 @@ export const create = async (values) => {
     default:
       break
   }
-  return Common.create(BILL_URL, values)
-}
-
-export const patch = async ({ id, values }) => {
-  await rollbackAndUpdateAccount({ id, values })
-  return Common.patch(`${BILL_URL}/${id}`, values)
-}
-
-export const remove = async (id) => {
-  await rollbackAccount(id)
-  return Common.remove(`${BILL_URL}/${id}`)
 }
 
 const updatePaymentAccount = async ({ account_id, money }) => {
@@ -125,23 +129,8 @@ const rollbackTransferAccount = async (bill) => {
 }
 
 const rollbackAndUpdateAccount = async ({ id: bill_id, values }) => {
-  const { type } = values
-
-  // Rollback account balance
+  // Rollback Account Balance
   await rollbackAccount(bill_id)
-
   // Update Account Balance
-  switch (type) {
-    case 'PAYMENT':
-      await updatePaymentAccount(values)
-      break
-    case 'INCOME':
-      await updateIncomeAccount(values)
-      break
-    case 'TRANSFER':
-      await updateTransferAccount(values)
-      break
-    default:
-      break
-  }
+  await updateAccount(values)
 }
