@@ -30,5 +30,13 @@ docker build -t minlife-web .
 ### Run Production
 
 ```shell
-docker run --name mw -v `PWD`/db.json:/app/db.json -p 80:3000 minlife-web
+docker run --name mw -v `PWD`/data:/app/data -p 80:3000 minlife-web
+```
+
+Tips: `data` folder contain file `db.json`.
+
+**DO NOT** USE following, `db.json` **will NOT SYNC** to local from docker container
+
+```
+-v `PWD`/data/db.json:/app/data/db.json`
 ```

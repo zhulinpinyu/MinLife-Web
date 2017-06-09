@@ -10,4 +10,4 @@ ADD web/dist/ /app/public
 ADD server/routes.json /app
 
 # Define default command.
-ENTRYPOINT ["json-server", "db.json", "--routes", "routes.json"]
+ENTRYPOINT ["json-server", "data/db.json", "--routes", "routes.json"]
