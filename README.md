@@ -19,7 +19,7 @@ yarn install
 yarn start
 ```
 
-## Deploy
+## Deploy use Docker
 
 ### Build Image
 
@@ -33,9 +33,9 @@ docker build -t minlife-web .
 docker run --name mw -v `PWD`/data:/app/data -p 80:3000 minlife-web
 ```
 
-Tips: `data` folder contain file `db.json`.
+Tips: `data` folder contain `db.json`.
 
-**DO NOT** USE following, `db.json` **will NOT SYNC** to local from docker container
+**DO NOT USE** following (`db.json` **WILL NOT SYNC** to local from docker container)
 
 ```
 -v `PWD`/data/db.json:/app/data/db.json`
