@@ -6,13 +6,15 @@ Light Web Application, record life bill.
 
 ### Server
   
-  ```
-  json-server db.json --routes routes.json
-  ```
+```shell
+cd server
+json-server db.json --routes routes.json
+```
   
 ### Web
 
-  ```
-    yarn install
-    yarn start
-  ```
+```shell
+cd web
+yarn install
+yarn start
+```
