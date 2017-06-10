@@ -2,6 +2,16 @@
 
 }
 
+.summary {
+  padding: 20px 0;
+  background: #eee;
+  margin: 10px 0;
+}
+
+.summaryCard {
+  padding: 0 10px;
+}
+
 .create {
   margin-bottom: 1em;
 }
@@ -12,6 +22,12 @@
 
 .accountLabel {
   margin: .5em 0;
+}
+
+.accountText {
+  font-size: 20px;
+  font-weight: bold;
+  padding: 0 10px;
 }
 
 .accountsBox{

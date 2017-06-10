@@ -1,5 +1,13 @@
 import React, { Component } from 'react'
-import { Table, Popconfirm, Button } from 'antd'
+import {
+  Table,
+  Popconfirm,
+  Button,
+  Row,
+  Col,
+  Card
+} from 'antd'
+import _ from 'lodash'
 import styles from './Accounts.css'
 import AccountModal from './AccountModal'
 
@@ -43,10 +51,52 @@ class Accounts extends Component {
     )
   }
 
+  renderAccountSummary() {
+    const { accounts } = this.props
+    const debitBalance = accounts
+      .filter(a => !a.debt)
+      .map(a => a.balance)
+      .reduce(((v1, v2) => v1 + v2), 0)
+    const debtBalance = accounts
+      .filter(a => a.debt)
+      .map(a => a.balance)
+      .reduce(((v1, v2) => v1 + v2), 0)
+    const netasset = debitBalance - debtBalance
+    return (
+      <div className={styles.summary}>
+        <Row>
+          <Col span="8" className={styles.summaryCard}>
+            <Card>
+               净资产: <span className={styles.accountText}>{netasset}</span>
+            </Card>
+          </Col>
+          <Col span="8" className={styles.summaryCard}>
+            <Card>
+              总资产: <span className={styles.accountText}>{debitBalance}</span>
+            </Card>
+          </Col>
+          <Col span="8" className={styles.summaryCard}>
+            <Card>
+              总负债: <span className={styles.accountText}>{debtBalance}</span>
+            </Card>
+          </Col>
+        </Row>
+      </div>
+    )
+  }
+
   renderDebtAccounts(dataSource) {
+    const debtBalance = !_.isEmpty(dataSource) && dataSource
+      .map(acc => acc.balance)
+      .reduce(((v1, v2) => v1 + v2), 0)
     return (
       <div className={styles.accountsBox}>
-        <h2 className={styles.accountLabel}><span>债务账户</span></h2>
+        <div className={styles.accountLabel}>
+          <span className={styles.accountText}>
+            债务账户
+          </span>
+          (余额: {debtBalance})
+        </div>
         <Table
           dataSource={dataSource}
           rowKey={item => item.id}
@@ -79,9 +129,17 @@ class Accounts extends Component {
   }
 
   renderDebitAccounts(dataSource) {
+    const debitBalance = !_.isEmpty(dataSource) && dataSource
+      .map(acc => acc.balance)
+      .reduce(((v1, v2) => v1 + v2), 0)
     return (
       <div className={styles.accountsBox}>
-        <h2 className={styles.accountLabel}><span>储蓄账户</span></h2>
+        <div className={styles.accountLabel}>
+          <span className={styles.accountText}>
+            储蓄账户
+          </span>
+          (余额: {debitBalance})
+        </div>
         <Table
           dataSource={dataSource}
           rowKey={item => item.id}
@@ -131,6 +189,7 @@ class Accounts extends Component {
             </Button>
           </AccountModal>
         </div>
+        {this.renderAccountSummary()}
         {this.renderDebitAccounts(debitData)}
         {this.renderDebtAccounts(debtData)}
       </div>
