@@ -113,7 +113,7 @@ class Bills extends Component {
                 return (
                   <span>
                     {payment_account.title}
-                    <Icon type="swap-right" />
+                    <Icon type="swap" style={{ fontSize: 16, color: '#2db7f5' }} />
                     {income_account.title}
                   </span>
                 )
