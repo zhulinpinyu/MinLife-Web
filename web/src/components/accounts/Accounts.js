@@ -28,7 +28,7 @@ class Accounts extends Component {
   renderActions(text, record) {
     return (
       <span className={styles.action}>
-        <Popconfirm title="要删除吗，这个类别可能已经在使用了？" onConfirm={this.deleteHandler.bind(this, record.id)} okText="删除" cancelText="算了">
+        <Popconfirm title="要删除这个账户吗？" onConfirm={this.deleteHandler.bind(this, record.id)} okText="删除" cancelText="算了">
           <a href="">删除</a>
         </Popconfirm>
         <AccountModal

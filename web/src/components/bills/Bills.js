@@ -112,9 +112,9 @@ class Bills extends Component {
               if (type === 'TRANSFER') {
                 return (
                   <span>
-                    {payment_account.title}
+                    {payment_account && payment_account.title}
                     <Icon type="swap" style={{ fontSize: 16, color: '#2db7f5' }} />
-                    {income_account.title}
+                    {payment_account && income_account.title}
                   </span>
                 )
               }
