@@ -95,7 +95,7 @@ class Accounts extends Component {
           <span className={styles.accountText}>
             债务账户
           </span>
-          (余额: {debtBalance})
+          (负债: {debtBalance})
         </div>
         <Table
           dataSource={dataSource}
@@ -116,7 +116,7 @@ class Accounts extends Component {
             title="债务"
             dataIndex="balance"
             key="balance"
-            render={(text, { currency }) => `${text} (${currency})`}
+            render={(text, { currency }) => `${Math.round(text * 100) / 100} (${currency})`}
           />
           <Table.Column
             title="操作"
@@ -159,7 +159,7 @@ class Accounts extends Component {
             title="余额"
             dataIndex="balance"
             key="balance"
-            render={(text, { currency }) => `${text} (${currency})`}
+            render={(text, { currency }) => `${Math.round(text * 100) / 100} (${currency})`}
           />
           <Table.Column
             title="操作"
