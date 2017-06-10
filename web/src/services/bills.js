@@ -55,11 +55,11 @@ const updatePaymentAccount = async ({ account_id, money }) => {
 }
 
 const updateIncomeAccount = async ({ account_id, money }) => {
-  const { data: { balance } } = await Accounts.fetchById(account_id)
+  const { data: { debt, balance } } = await Accounts.fetchById(account_id)
   await Accounts.patch({
     id: account_id,
     values: {
-      balance: (balance + money)
+      balance: debt ? (balance - money) : (balance + money)
     }
   })
 }
