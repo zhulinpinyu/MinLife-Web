@@ -5,7 +5,7 @@ import * as Common from './common'
 const BILL_URL = '/api/bills'
 
 export const fetch = () => {
-  return request(BILL_URL)
+  return request(`${BILL_URL}?_sort=bill_date&_order=desc`)
 }
 
 export const fetchById = (id) => {

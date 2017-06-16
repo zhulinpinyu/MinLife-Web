@@ -96,7 +96,7 @@ class Accounts extends Component {
           <span className={styles.accountText}>
             债务账户
           </span>
-          (负债: {debtBalance})
+          (负债: {decimal2(debtBalance)})
         </div>
         <Table
           dataSource={dataSource}
@@ -139,7 +139,7 @@ class Accounts extends Component {
           <span className={styles.accountText}>
             储蓄账户
           </span>
-          (余额: {debitBalance})
+          (余额: {decimal2(debitBalance)})
         </div>
         <Table
           dataSource={dataSource}
