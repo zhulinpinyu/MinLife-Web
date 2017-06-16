@@ -10,6 +10,7 @@ import {
 import _ from 'lodash'
 import styles from './Accounts.css'
 import AccountModal from './AccountModal'
+import { decimal2 } from '../../utils/tool'
 
 class Accounts extends Component {
   deleteHandler(id) {
@@ -67,17 +68,17 @@ class Accounts extends Component {
         <Row>
           <Col span="8" className={styles.summaryCard}>
             <Card>
-               净资产: <span className={styles.accountText}>{netasset}</span>
+               净资产: <span className={styles.accountText}>{decimal2(netasset)}</span>
             </Card>
           </Col>
           <Col span="8" className={styles.summaryCard}>
             <Card>
-              总资产: <span className={styles.accountText}>{debitBalance}</span>
+              总资产: <span className={styles.accountText}>{decimal2(debitBalance)}</span>
             </Card>
           </Col>
           <Col span="8" className={styles.summaryCard}>
             <Card>
-              总负债: <span className={styles.accountText}>{debtBalance}</span>
+              总负债: <span className={styles.accountText}>{decimal2(debtBalance)}</span>
             </Card>
           </Col>
         </Row>
@@ -116,7 +117,7 @@ class Accounts extends Component {
             title="债务"
             dataIndex="balance"
             key="balance"
-            render={(text, { currency }) => `${Math.round(text * 100) / 100} (${currency})`}
+            render={(text, { currency }) => `${decimal2(text)} (${currency})`}
           />
           <Table.Column
             title="操作"
@@ -159,7 +160,7 @@ class Accounts extends Component {
             title="余额"
             dataIndex="balance"
             key="balance"
-            render={(text, { currency }) => `${Math.round(text * 100) / 100} (${currency})`}
+            render={(text, { currency }) => `${decimal2(text)} (${currency})`}
           />
           <Table.Column
             title="操作"
