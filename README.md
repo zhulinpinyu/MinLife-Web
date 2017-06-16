@@ -21,6 +21,13 @@ yarn start
 
 ## Deploy use Docker
 
+### Build code
+
+```shell
+cd web
+yarn build
+```
+
 ### Build Image
 
 ```shell
