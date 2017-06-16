@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Table, Button, Popconfirm, Icon, Tag } from 'antd'
 import styles from './Bills.css'
 import BillModal from './BillModal'
+import { decimal2 } from '../../utils/tool'
 
 class Bills extends Component {
 
@@ -108,7 +109,7 @@ class Bills extends Component {
             title="账户"
             dataIndex="account.title"
             key="account"
-            render={(text, { payment_account, income_account, type }) => {
+            render={(text, { account, payment_account, income_account, type }) => {
               if (type === 'TRANSFER') {
                 return (
                   <span>
@@ -118,7 +119,7 @@ class Bills extends Component {
                   </span>
                 )
               }
-              return text
+              return `${text}(${account.debt ? '负债' : '余额'}:${decimal2(account.balance)})`
             }}
           />
           <Table.Column
