@@ -70,7 +70,7 @@ class Bills extends Component {
         <Table
           dataSource={bills}
           rowKey={item => item.id}
-          pagination={false}
+          pagination
         >
           <Table.Column
             title="日期"
